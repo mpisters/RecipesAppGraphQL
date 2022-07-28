@@ -1,8 +1,11 @@
+using Microsoft.EntityFrameworkCore;
+using RecipesApp.Db;
 using RecipesApp.Queries;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.AddDbContext<RecipesContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DbConnection") ?? string.Empty));
 builder.Services
     .AddGraphQLServer()
     .AddQueryType<QueryRecipes>();
