@@ -1,29 +1,12 @@
+using RecipesApp.Db;
 using RecipesApp.Domain;
 
 namespace RecipesApp.Queries;
 
-public class QueryRecipes
+public class QueryRecipe
 {
-    public Recipe GetRecipe() => new Recipe
+    public Recipe GetRecipe([Service(ServiceKind.Synchronized)] RecipesContext recipesContext)
     {
-        Name = "Test",
-        Ingredients = new List<Ingredient>()
-        {
-            new Ingredient()
-            {
-                Amount = 5,
-                Product = new Product() { Name = "Tomaat" },
-                UnitOfMeasurement = UnitOfMeasurement.unit,
-            }
-        },
-        Steps = new List<RecipeStep>()
-        {
-            new RecipeStep()
-            {
-                StepNumber = 1,
-                Description = "Snij de tomaten."
-            }
-
-        }
-    };
+        return recipesContext.Recipes.FirstOrDefault();
+    }
 }
