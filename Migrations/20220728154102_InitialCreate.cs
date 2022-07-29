@@ -43,7 +43,7 @@ namespace RecipesApp.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     ProductId = table.Column<int>(type: "integer", nullable: false),
                     Amount = table.Column<float>(type: "real", nullable: false),
-                    UnitOfMeasurement = table.Column<int>(type: "integer", nullable: false),
+                    UnitOfMeasurement = table.Column<string>(type: "text", nullable: false),
                     RecipeId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>

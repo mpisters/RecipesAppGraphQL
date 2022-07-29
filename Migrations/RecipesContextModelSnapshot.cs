@@ -39,8 +39,8 @@ namespace RecipesApp.Migrations
                     b.Property<int?>("RecipeId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("UnitOfMeasurement")
-                        .HasColumnType("integer");
+                    b.Property<string>("UnitOfMeasurement")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 

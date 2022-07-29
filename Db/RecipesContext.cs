@@ -16,4 +16,14 @@ public class RecipesContext : DbContext
     }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseNpgsql(Configuration.GetConnectionString("DbConnection") ?? throw new InvalidOperationException());
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder
+            .Entity<Ingredient>()
+            .Property(e => e.UnitOfMeasurement)
+            .HasConversion(
+                v => v.ToString(),
+                v => (UnitOfMeasurement)Enum.Parse(typeof(UnitOfMeasurement), v));
+    }
 }
