@@ -9,9 +9,9 @@ builder.Services.AddDbContext<RecipesContext>(options =>
 
 builder.Services
     .AddGraphQLServer()
-    .RegisterDbContext<RecipesContext>()
-    .AddQueryType<QueryRecipe>();
+    .AddQueryType<Query>();
 
+builder.Services.AddScoped<RecipeRepository, RecipeRepository>();
 builder.Services.AddControllers().AddNewtonsoftJson();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

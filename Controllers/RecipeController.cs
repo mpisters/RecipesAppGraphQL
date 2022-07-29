@@ -10,13 +10,13 @@ namespace RecipesApp.Controllers;
 [ApiController]
 public class RecipeController : ControllerBase
 {
-    private RecipesContext _recipeContext;
-    public RecipeController(RecipesContext dbContext)
+    private RecipeRepository _recipeRepository;
+    public RecipeController(RecipeRepository repository)
     {
-        _recipeContext = dbContext;
+        _recipeRepository = repository;
     }
     [HttpPost]
-    public async Task<OkResult> CreateRecipe([FromBody] CreateRecipeDto recipeDto)
+    public async Task<OkObjectResult> CreateRecipe([FromBody] CreateRecipeDto recipeDto)
     {
 
         var ingredients = recipeDto.Ingredients.Select(x =>
@@ -34,14 +34,14 @@ public class RecipeController : ControllerBase
         {
             Description = x.Description,
         }).ToList();
-        var recipe = _recipeContext.Recipes.Add(new Recipe()
+        var recipe = await _recipeRepository.CreateRecipe(new Recipe()
         {
             Name = recipeDto.Name,
             Ingredients = ingredients,
             Steps = steps
         });
-        await _recipeContext.SaveChangesAsync();
-        return Ok();
+
+        return Ok(recipe);
     }
 
 }
