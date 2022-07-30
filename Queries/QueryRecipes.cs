@@ -3,7 +3,7 @@ using RecipesApp.Domain;
 
 namespace RecipesApp.Queries;
 
-public class Query
+public class QueryRecipes
 {
     public List<Recipe> GetRecipes([Service] IRecipeRepository recipeRepository)
     {

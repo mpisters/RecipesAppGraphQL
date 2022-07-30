@@ -1,8 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using RecipesApp.Db;
 using RecipesApp.Controllers.Dtos;
-using RecipesApp.Domain;
+using RecipesApp.Core;
+using RecipesApp.Db;
 
 namespace RecipesApp.Controllers;
 
@@ -15,32 +14,14 @@ public class RecipeController : ControllerBase
     {
         _recipeRepository = repository;
     }
+
+
     [HttpPost]
     public async Task<OkObjectResult> CreateRecipe([FromBody] CreateRecipeDto recipeDto)
     {
 
-        var ingredients = recipeDto.Ingredients.Select(x =>
-            new Ingredient()
-            {
-                Amount = x.Amount,
-                Product = new Product()
-                {
-                    Name = x.Product.Name,
-                },
-                UnitOfMeasurement = x.UnitOfMeasurement,
-            }).ToList();
-
-        var steps = recipeDto.Steps.Select(x => new RecipeStep()
-        {
-            Description = x.Description,
-        }).ToList();
-        var recipe = await _recipeRepository.CreateRecipe(new Recipe()
-        {
-            Name = recipeDto.Name,
-            Ingredients = ingredients,
-            Steps = steps
-        });
-
+        var recipe = RecipeHelper.CreateRecipeFromDto(recipeDto);
+        var savedRecipe = await _recipeRepository.CreateRecipe(recipe);
         return Ok(recipe);
     }
 

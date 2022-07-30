@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using RecipesApp.Db;
+using RecipesApp.Mutations;
 using RecipesApp.Queries;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,7 +9,8 @@ builder.Services.AddDbContext<RecipesContext>(options =>
 
 builder.Services
     .AddGraphQLServer()
-    .AddQueryType<Query>();
+    .AddQueryType<QueryRecipes>()
+    .AddMutationType<MutateRecipe>();
 
 builder.Services.AddScoped<IRecipeRepository, RecipeRepository>();
 
