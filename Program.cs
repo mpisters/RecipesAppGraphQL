@@ -3,7 +3,6 @@ using RecipesApp.Db;
 using RecipesApp.Queries;
 
 var builder = WebApplication.CreateBuilder(args);
-
 builder.Services.AddDbContext<RecipesContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DbConnection") ?? string.Empty));
 
@@ -11,7 +10,8 @@ builder.Services
     .AddGraphQLServer()
     .AddQueryType<Query>();
 
-builder.Services.AddScoped<RecipeRepository, RecipeRepository>();
+builder.Services.AddScoped<IRecipeRepository, RecipeRepository>();
+
 builder.Services.AddControllers().AddNewtonsoftJson();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

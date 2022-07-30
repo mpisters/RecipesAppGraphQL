@@ -10,8 +10,8 @@ namespace RecipesApp.Controllers;
 [ApiController]
 public class RecipeController : ControllerBase
 {
-    private RecipeRepository _recipeRepository;
-    public RecipeController(RecipeRepository repository)
+    private IRecipeRepository _recipeRepository;
+    public RecipeController(IRecipeRepository repository)
     {
         _recipeRepository = repository;
     }

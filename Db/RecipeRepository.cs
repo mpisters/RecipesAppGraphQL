@@ -3,7 +3,7 @@ using RecipesApp.Domain;
 
 namespace RecipesApp.Db;
 
-public class RecipeRepository
+public class RecipeRepository : IRecipeRepository
 {
     private readonly RecipesContext _recipesContext;
 
@@ -14,14 +14,16 @@ public class RecipeRepository
 
     public List<Recipe> GetRecipes()
     {
-        return _recipesContext.Recipes.ToList();
+        return _recipesContext.Recipes.
+            Include(r => r.Ingredients)
+            .ThenInclude((ingredient) => ingredient.Product)
+            .Include(r => r.Steps).ToList();
+
     }
 
     public Recipe GetRecipeById(int id)
     {
-        var recipe = _recipesContext.Recipes
-            .Include(r => r.Ingredients)
-            .Include(r => r.Steps)
+        var recipe = GetRecipes()
             .FirstOrDefault(x => x.Id == id);
 
         if (recipe != null)
