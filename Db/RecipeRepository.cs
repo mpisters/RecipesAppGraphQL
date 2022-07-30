@@ -40,6 +40,14 @@ public class RecipeRepository : IRecipeRepository
         return recipe;
     }
 
+    public async Task<Recipe> CreateRecipe(string recipeName)
+    {
+        var recipe = new Recipe() { Name = recipeName };
+        await _recipesContext.Recipes.AddAsync(recipe);
+        await _recipesContext.SaveChangesAsync();
+        return recipe;
+    }
+
     public async Task<Ingredient> CreateIngredientForRecipeId(int recipeId, CreateIngredientDto createIngredientDto)
     {
         var recipe = await _recipesContext.Recipes
