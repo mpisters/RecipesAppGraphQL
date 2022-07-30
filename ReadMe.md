@@ -20,7 +20,7 @@ dotnet ef migrations add Add<Name>
 dotnet ef database update
 ```
 
-### Grapql
+### Graphql
 ```bash
  mutation {
   createIngredientForRecipeId(recipeId: 1, ingredientDto: {
