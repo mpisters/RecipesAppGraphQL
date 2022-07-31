@@ -50,7 +50,7 @@ dotnet ef database update
 
 ```bash
 mutation {
- createCompleteRecipe(createRecipeDto: {
+ createRecipe(createRecipeDto: {
    name: "pizza",
    ingredients: [
      {product: {
