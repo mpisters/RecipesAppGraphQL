@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using RecipesApp.Controllers.Dtos;
+using RecipesApp.Core.Dtos;
 using RecipesApp.Domain;
 
 namespace RecipesApp.Db;
@@ -40,14 +40,6 @@ public class RecipeRepository : IRecipeRepository
         return recipe;
     }
 
-    public async Task<Recipe> CreateRecipe(string recipeName)
-    {
-        var recipe = new Recipe() { Name = recipeName };
-        await _recipesContext.Recipes.AddAsync(recipe);
-        await _recipesContext.SaveChangesAsync();
-        return recipe;
-    }
-
     public async Task<Ingredient> CreateIngredientForRecipeId(int recipeId, CreateIngredientDto createIngredientDto)
     {
         var recipe = await _recipesContext.Recipes
@@ -70,7 +62,15 @@ public class RecipeRepository : IRecipeRepository
             UnitOfMeasurement = createIngredientDto.UnitOfMeasurement,
         };
 
-        recipe.Ingredients.Add(ingredient);
+        if (recipe.Ingredients != null)
+        {
+            recipe.Ingredients.Add(ingredient);
+
+        }
+        else
+        {
+            recipe.Ingredients = new List<Ingredient>() { ingredient };
+        }
         _recipesContext.Recipes.Update(recipe);
         await _recipesContext.SaveChangesAsync();
         return ingredient;

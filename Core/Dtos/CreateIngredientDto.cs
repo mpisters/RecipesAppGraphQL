@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using RecipesApp.Domain;
 
-namespace RecipesApp.Controllers.Dtos;
+namespace RecipesApp.Core.Dtos;
 
 public class CreateIngredientDto
 {

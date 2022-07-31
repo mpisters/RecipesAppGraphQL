@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using RecipesApp.Controllers.Dtos;
 using RecipesApp.Core;
+using RecipesApp.Core.Dtos;
 using RecipesApp.Db;
 
 namespace RecipesApp.Controllers;
@@ -20,7 +20,7 @@ public class RecipeController : ControllerBase
     public async Task<OkObjectResult> CreateRecipe([FromBody] CreateRecipeDto recipeDto)
     {
 
-        var recipe = RecipeHelper.CreateRecipeFromDto(recipeDto);
+        var recipe = RecipeConverter.CreateRecipeFromDto(recipeDto);
         var savedRecipe = await _recipeRepository.CreateRecipe(recipe);
         return Ok(recipe);
     }

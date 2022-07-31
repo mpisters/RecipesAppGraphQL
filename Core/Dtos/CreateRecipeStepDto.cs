@@ -1,4 +1,4 @@
-namespace RecipesApp.Controllers.Dtos;
+namespace RecipesApp.Core.Dtos;
 
 public class CreateRecipeStepDto
 {

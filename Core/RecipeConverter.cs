@@ -1,27 +1,37 @@
-using RecipesApp.Controllers.Dtos;
+using RecipesApp.Core.Dtos;
 using RecipesApp.Domain;
 
 namespace RecipesApp.Core;
 
-public class RecipeHelper
+public class RecipeConverter
 {
     public static Recipe CreateRecipeFromDto(CreateRecipeDto createRecipeDto)
     {
-        var ingredients = createRecipeDto.Ingredients.Select(x =>
-            new Ingredient()
-            {
-                Amount = x.Amount,
-                Product = new Product()
-                {
-                    Name = x.Product.Name,
-                },
-                UnitOfMeasurement = x.UnitOfMeasurement,
-            }).ToList();
+        var ingredients = new List<Ingredient>();
 
-        var steps = createRecipeDto.Steps.Select(x => new RecipeStep()
+        if (createRecipeDto.Ingredients != null)
         {
-            Description = x.Description,
-        }).ToList();
+            ingredients = createRecipeDto.Ingredients.Select(x =>
+                new Ingredient()
+                {
+                    Amount = x.Amount,
+                    Product = new Product()
+                    {
+                        Name = x.Product.Name,
+                    },
+                    UnitOfMeasurement = x.UnitOfMeasurement,
+                }).ToList();
+        }
+
+        var steps = new List<RecipeStep>();
+
+        if (createRecipeDto.Steps != null)
+        {
+            steps = createRecipeDto.Steps.Select(x => new RecipeStep()
+            {
+                Description = x.Description,
+            }).ToList();
+        }
 
         var recipe = new Recipe()
         {
