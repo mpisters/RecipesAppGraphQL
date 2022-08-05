@@ -34,7 +34,7 @@ dotnet ef database update
 ```
 
 ```bash
- {  
+ query {  
    recipeById(id: 1) {
      name,
      ingredients{
