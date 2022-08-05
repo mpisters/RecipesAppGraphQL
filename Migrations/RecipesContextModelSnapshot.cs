@@ -40,6 +40,7 @@ namespace RecipesApp.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("UnitOfMeasurement")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -76,9 +77,15 @@ namespace RecipesApp.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CookingTime")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<int>("TotalPersons")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 

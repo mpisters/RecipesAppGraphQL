@@ -37,7 +37,9 @@ public class RecipeConverter
         {
             Ingredients = ingredients,
             Steps = steps,
-            Name = createRecipeDto.Name
+            Name = createRecipeDto.Name,
+            CookingTime = createRecipeDto.CookingTime,
+            TotalPersons = createRecipeDto.TotalPersons
         };
 
         return recipe;
